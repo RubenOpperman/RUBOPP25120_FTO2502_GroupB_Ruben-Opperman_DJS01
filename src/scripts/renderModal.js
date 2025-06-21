@@ -33,20 +33,48 @@ export const ModalRenderer = {
     const genreNames = DataManager.getGenreIds(podcast.genres, genres).join(
       "  |  "
     );
-    const UpdateTimeAgo = DataManager.timeAgo(podcast.updated);
+
+    const UpdateDate = new Date(podcast.updated);
+    const formattedDate = UpdateDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
     const div = document.createElement("div");
 
-    div.className = "w-[90vw] h-auto rounded-lg bg-white p-4 ";
-    div.innerHTML = `<h1>     <div class="text-right">
-        <button id="close-btn" class="text-red-500 font-bold">&times</button>
+    div.className = "max-w-[90vw] h-auto w-auto rounded-lg bg-white p-4 ";
+    div.innerHTML = `<div class="text-right">
+        <button id="close-btn" class="text-red-500 text-lg font-bold">&times</button>
       </div>
-      <h2 class="text-xl font-bold mb-2">${podcast.title}</h2>
-     <div class="w-[95%] h-[70%] bg-light-grey mx-auto rounded-lg mb-2"> <picture><img class="w-full h-full object-cover rounded-2xl" src="${podcast.image}" ></picture> </div>
-     <h3>Description</h3>
-      <p><strong>Seasons:</strong> ${podcast.seasons}</p>
-      <p><strong>Genres:</strong> ${genreNames}</p>
-      <p class="text-sm text-gray-500">Updated ${UpdateTimeAgo}</p></h1> `;
+      <h2 class="text-2xl font-bold mb-2">${podcast.title}</h2>
+     <div class="w-[95%] h-[70%] bg-light-grey mx-auto rounded-lg mb-2"> <img class="w-full h-full object-cover rounded-2xl" src="${podcast.image}" ></div>
+     <h3 class="text-xl font-bold">Description</h3>
+     <p> ${podcast.description}</p>
+     <h3 class="text-xl font-bold">Genres:</h3>
+     <p> ${genreNames}</p>
+     <p class="text-sm text-gray-500">Last updated: ${formattedDate}</p></h1> 
+    <p class="text-xl font-bold">Seasons</p>
+    <div id="seasons-container">   </div>
+`;
+
+    ``;
+
+    const seasonData = seasons.find((s) => s.id === podcast.id);
+
+    const seasonsContainer = div.querySelector("#seasons-container");
+
+    seasonData.seasonDetails.forEach((season) => {
+      const seasonCard = document.createElement("div");
+      seasonCard.className = "bg-gray-100 p-4 rounded-lg shadow-sm mb-2";
+
+      seasonCard.innerHTML = `
+      <h4 class="font-semibold text-lg">${season.title}</h4>
+      <p class="text-sm text-gray-600">Episodes: ${season.episodes}</p>
+    `;
+
+      seasonsContainer.appendChild(seasonCard);
+    });
 
     return div;
   },
