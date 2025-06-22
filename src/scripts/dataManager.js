@@ -1,3 +1,5 @@
+import { genres, seasons, podcasts } from "./initialData.js";
+
 export const DataManager = {
   getGenreIds(ids, allGenres) {
     return ids.map((id) => {
@@ -29,5 +31,37 @@ export const DataManager = {
     }
 
     return "just now";
+  },
+
+  renderSeasons: (podcast, container) => {
+    const seasonData = seasons.find((s) => s.id === podcast.id);
+    const seasonsContainer = container.querySelector("#seasons-container");
+
+    seasonsContainer.innerHTML = "";
+
+    seasonData.seasonDetails.forEach((season) => {
+      const seasonCard = document.createElement("div");
+      seasonCard.className = "bg-gray-100 p-4 rounded-lg shadow-sm mb-2";
+
+      seasonCard.innerHTML = `
+        <h4 class="font-semibold text-lg">${season.title}</h4>
+        <p class="text-sm text-gray-600">Episodes: ${season.episodes}</p>
+      `;
+
+      seasonsContainer.appendChild(seasonCard);
+    });
+  },
+
+  renderGenres: (genreString, container) => {
+    const genresList = genreString.split(" / ");
+    container.innerHTML = "";
+
+    genresList.forEach((genre) => {
+      const genreTag = document.createElement("span");
+      genreTag.className =
+        "bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium m-1";
+      genreTag.textContent = genre;
+      container.appendChild(genreTag);
+    });
   },
 };

@@ -1,4 +1,4 @@
-import { podcasts, genres, seasons } from "./initialData.js";
+import { podcasts } from "./initialData.js";
 import { PodcastRenderer } from "./renderPodcasts.js";
 
 const PodcastApp = {

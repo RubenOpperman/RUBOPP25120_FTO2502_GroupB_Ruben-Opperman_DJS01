@@ -1,5 +1,5 @@
 import { DataManager } from "./dataManager.js";
-import { podcasts, genres, seasons } from "./initialData.js";
+import { genres, seasons } from "./initialData.js";
 
 export const Modal = {
   openModal: (container, podcast) => {
@@ -41,12 +41,11 @@ export const ModalRenderer = {
       day: "numeric",
     });
 
-    const div = document.createElement("div");
+    const ModalContainer = document.createElement("div");
 
-    div.className =
+    ModalContainer.className =
       "max-w-[full] h-auto w-auto border-1 border-[#9CA3AF] rounded-lg bg-white p-4 font-serif";
-    div.innerHTML = `
- <div class="text-right">
+    ModalContainer.innerHTML = `<div class="text-right">
   <div class="flex w-full mb-5">
     <h2 class="text-2xl font-bold mb-2">${podcast.title}</h2>
     <button id="close-btn" class="text-red-500 text-3xl ml-auto font-bold">&times;</button>
@@ -54,74 +53,47 @@ export const ModalRenderer = {
 </div>
 
 <div class="flex flex-col md:flex-row gap-6">
-  <!-- Image -->
+  <!-- Image Section -->
   <div class="md:w-1/2">
     <div class="w-full h-auto bg-light-grey rounded-lg mb-2">
-      <img class="w-full h-full object-cover rounded-2xl" src="${podcast.image}" />
+      <img
+        class="w-full h-full object-cover rounded-2xl"
+        src="${podcast.image}"
+        alt="${podcast.title} cover"
+      />
     </div>
   </div>
 
-
-
-
-  <!-- Textual Content -->
+  <!-- Textual Content Section -->
   <div class="md:w-1/2">
+    <!-- Description -->
     <h3 class="text-xl font-bold mt-2 mb-5">Description</h3>
-    <p>${podcast.description}</p>
+    <p class="text-secondary-font-color">${podcast.description}</p>
 
-    <h3  class="text-xl font-bold mt-10  mb-5">Genres:</h3>
-    <div id="genre-container"> </div>
- 
+    <!-- Genres -->
+    <h3 class="text-xl font-bold mt-10 mb-5">Genres:</h3>
+    <div id="genre-container" class="flex flex-wrap gap-2"></div>
 
-    <p class="text-md text-gray-500 mt-5 mb-5">Last updated: ${formattedDate}</p>
-
-   
+    <!-- Last Updated -->
+    <div class="flex items-center mt-6">
+      <img
+        class="w-5 h-5 mr-2"
+        src="/assets/gray-calendar-25911.svg"
+        alt="calendar icon"
+      />
+      <p class="text-md text-gray-500">Last updated: ${formattedDate}</p>
+    </div>
   </div>
 </div>
 
-
-
-
 <!-- Seasons Section -->
- <h3 class="text-xl font-bold mt-10 mb-5">Seasons</h3>
-<div id="seasons-container" class="mt-6"></div>
-      
-  
- 
-`;
+<h3 class="text-xl font-bold mt-10 mb-5">Seasons</h3>
+<div id="seasons-container" class="mt-6"></div>`;
+    DataManager.renderSeasons(podcast, ModalContainer);
 
-    ``;
+    const genresContainer = ModalContainer.querySelector("#genre-container");
+    DataManager.renderGenres(genreNames, genresContainer);
 
-    const seasonData = seasons.find((s) => s.id === podcast.id);
-
-    const seasonsContainer = div.querySelector("#seasons-container");
-
-    seasonData.seasonDetails.forEach((season) => {
-      const seasonCard = document.createElement("div");
-      seasonCard.className = "bg-gray-100 p-4 rounded-lg shadow-sm mb-2";
-
-      seasonCard.innerHTML = `
-      <h4 class="font-semibold text-lg">${season.title}</h4>
-      <p class="text-sm text-gray-600">Episodes: ${season.episodes}</p>
-    `;
-
-      seasonsContainer.appendChild(seasonCard);
-    });
-
-    const genresList = genreNames.split(" / ");
-
-    const genresContainer = div.querySelector("#genre-container");
-
-    genresList.forEach((genre) => {
-      const genresCard = document.createElement("span");
-
-      genresCard.className =
-        "bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium m-1";
-      genresCard.textContent = genre;
-
-      genresContainer.appendChild(genresCard);
-    });
-
-    return div;
+    return ModalContainer;
   },
 };
