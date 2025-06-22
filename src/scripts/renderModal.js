@@ -43,19 +43,50 @@ export const ModalRenderer = {
 
     const div = document.createElement("div");
 
-    div.className = "max-w-[90vw] h-auto w-auto rounded-lg bg-white p-4 ";
-    div.innerHTML = `<div class="text-right">
-        <button id="close-btn" class="text-red-500 text-lg font-bold">&times</button>
-      </div>
-      <h2 class="text-2xl font-bold mb-2">${podcast.title}</h2>
-     <div class="w-[95%] h-[70%] bg-light-grey mx-auto rounded-lg mb-2"> <img class="w-full h-full object-cover rounded-2xl" src="${podcast.image}" ></div>
-     <h3 class="text-xl font-bold">Description</h3>
-     <p> ${podcast.description}</p>
-     <h3 class="text-xl font-bold">Genres:</h3>
-     <p> ${genreNames}</p>
-     <p class="text-sm text-gray-500">Last updated: ${formattedDate}</p></h1> 
-    <p class="text-xl font-bold">Seasons</p>
-    <div id="seasons-container">   </div>
+    div.className =
+      "max-w-[full] h-auto w-auto border-1 border-[#9CA3AF] rounded-lg bg-white p-4 font-serif";
+    div.innerHTML = `
+ <div class="text-right">
+  <div class="flex w-full mb-5">
+    <h2 class="text-2xl font-bold mb-2">${podcast.title}</h2>
+    <button id="close-btn" class="text-red-500 text-3xl ml-auto font-bold">&times;</button>
+  </div>
+</div>
+
+<div class="flex flex-col md:flex-row gap-6">
+  <!-- Image -->
+  <div class="md:w-1/2">
+    <div class="w-full h-auto bg-light-grey rounded-lg mb-2">
+      <img class="w-full h-full object-cover rounded-2xl" src="${podcast.image}" />
+    </div>
+  </div>
+
+
+
+
+  <!-- Textual Content -->
+  <div class="md:w-1/2">
+    <h3 class="text-xl font-bold mt-2 mb-5">Description</h3>
+    <p>${podcast.description}</p>
+
+    <h3 class="text-xl font-bold mt-10 mb-5">Genres:</h3>
+    <p>${genreNames}</p>
+
+    <p class="text-md text-gray-500 mt-5 mb-5">Last updated: ${formattedDate}</p>
+
+   
+  </div>
+</div>
+
+
+
+
+<!-- Seasons Section -->
+ <h3 class="text-xl font-bold mt-10 mb-5">Seasons</h3>
+<div id="seasons-container" class="mt-6"></div>
+      
+  
+ 
 `;
 
     ``;

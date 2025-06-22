@@ -1,6 +1,5 @@
 import { podcasts, genres, seasons } from "./initialData.js";
 import { PodcastRenderer } from "./renderPodcasts.js";
-import { ModalRenderer } from "./renderModal.js";
 
 const PodcastApp = {
   init: () => {

@@ -19,7 +19,7 @@ export const PodcastRenderer = {
     const UpdateTimeAgo = DataManager.timeAgo(podcast.updated);
     const div = document.createElement("div");
     div.className =
-      "w-full  rounded-lg border-2 border-dark-grey bg-white p-2 shadow-sm mx-auto";
+      "w-full  rounded-lg border-2 border-[#9CA3AF] bg-Podcast-card p-2 shadow-lg mx-auto font-serif ";
     div.innerHTML = `
     
     <div class="p-2">

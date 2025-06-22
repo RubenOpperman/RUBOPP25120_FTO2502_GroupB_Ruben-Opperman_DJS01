@@ -7,18 +7,21 @@
     <link href="./output.css" rel="stylesheet" />
     <script type="module" defer src="./scripts/main.js"></script>
   </head>
-  <body id="body" class="bg-light-grey">
-    <nav class="w-full h-15 bg-white flex items-center mb-5">
-      <div class="text-2xl p-2 font-bold">PodcastAPP</div>
+  <body id="body" class="bg-Background">
+    <nav
+      class="w-full h-15 bg-NavBar-bg text-Podcast-card flex items-center mb-5 font-serif"
+    >
+      <div><img src="/assets/apple-podcast.svg" alt="" /></div>
+      <div class="text-2xl p-5 font-bold">PodcastAPP</div>
     </nav>
     <div
       id="podcast-container"
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
     ></div>
-    <!-- <div class="fixed inset-0 bg-black/50 z-40"></div> -->
+
     <dialog
       id="podcast-modal"
-      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-xl shadow-xl p-6 max-w-md w-full"
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-Podcast-card rounded-xl shadow-xl p-6 max-w-[80vw] w-full"
     >
       <span id="close-btn">&times;</span>
     </dialog>
