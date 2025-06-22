@@ -192,6 +192,9 @@
   .fixed {
     position: fixed;
   }
+  .relative {
+    position: relative;
+  }
   .top-1 {
     top: calc(var(--spacing) * 1);
   }

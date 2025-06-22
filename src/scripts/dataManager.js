@@ -1,13 +1,28 @@
 import { genres, seasons, podcasts } from "./initialData.js";
-
+/**
+ * Utility methods for data processing and DOM rendering.
+ * @namespace DataManager
+ */
 export const DataManager = {
+  /**
+   * Retrieves genre titles based on their IDs.
+   * @function
+   * @param {number[]} ids - Array of genre IDs.
+   * @param {Array} allGenres - Array of all genre objects.
+   * @returns {string[]} - Array of genre titles.
+   */
   getGenreIds(ids, allGenres) {
     return ids.map((id) => {
       const genre = allGenres.find((g) => g.id === id);
       return genre ? genre.title : "unknown";
     });
   },
-
+  /**
+   * Converts a date string into a relative time string (e.g., "2 days ago").
+   * @function
+   * @param {string} dateString - ISO string or valid date string.
+   * @returns {string} - Time ago string.
+   */
   timeAgo(dateString) {
     const now = new Date();
     const updated = new Date(dateString);
@@ -32,7 +47,12 @@ export const DataManager = {
 
     return "just now";
   },
-
+  /**
+   * Renders all seasons for a specific podcast into a container.
+   * @function
+   * @param {Object} podcast - The podcast object.
+   * @param {HTMLElement} container - The DOM element to render into (expects #seasons-container inside).
+   */
   renderSeasons: (podcast, container) => {
     const seasonData = seasons.find((s) => s.id === podcast.id);
     const seasonsContainer = container.querySelector("#seasons-container");
@@ -51,7 +71,12 @@ export const DataManager = {
       seasonsContainer.appendChild(seasonCard);
     });
   },
-
+  /**
+   * Renders genre tags into a container.
+   * @function
+   * @param {string} genreString - A string of genres .
+   * @param {HTMLElement} container - The DOM element to inject tags into.
+   */
   renderGenres: (genreString, container) => {
     const genresList = genreString.split(" / ");
     container.innerHTML = "";

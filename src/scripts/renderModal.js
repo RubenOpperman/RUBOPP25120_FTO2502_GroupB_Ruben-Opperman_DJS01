@@ -1,7 +1,17 @@
 import { DataManager } from "./dataManager.js";
 import { genres, seasons } from "./initialData.js";
 
+/**
+ * Handles opening and closing of the podcast modal.
+ * @namespace Modal
+ */
 export const Modal = {
+  /**
+   * Opens the modal with the provided podcast content.
+   * @function
+   * @param {HTMLElement} container - The element that was clicked to trigger the modal.
+   * @param {Object} podcast - The podcast object to render in the modal.
+   */
   openModal: (container, podcast) => {
     container.addEventListener("click", function () {
       const modal = document.getElementById("podcast-modal");
@@ -13,22 +23,40 @@ export const Modal = {
       Modal.closeModal(closeBtn);
     });
   },
-
+  /**
+   * Closes the modal when the close button is clicked.
+   * @function
+   * @param {HTMLElement} closeBtn - The close button element inside the modal.
+   */
   closeModal: (closeBtn) => {
     closeBtn.addEventListener("click", function () {
       document.getElementById("podcast-modal").close();
     });
   },
 };
-
+/**
+ * Handles the rendering of podcast content inside the modal.
+ * @namespace ModalRenderer
+ */
 export const ModalRenderer = {
+  /**
+   * Renders a podcast card into the given container.
+   * @function
+   * @param {Object} podcast - The podcast object to render.
+   * @param {HTMLElement} container - The container where the modal content will be placed.
+   */
   render: (podcast, container) => {
     container.innerHTML = "";
 
     const card = ModalRenderer.createModalCard(podcast);
     container.appendChild(card);
   },
-
+  /**
+   * Creates and returns a podcast modal DOM element with description, genres, and seasons.
+   * @function
+   * @param {Object} podcast - The podcast object.
+   * @returns {HTMLElement} - The fully populated modal container.
+   */
   createModalCard: (podcast) => {
     const genreNames = DataManager.getGenreIds(podcast.genres, genres).join(
       " / "

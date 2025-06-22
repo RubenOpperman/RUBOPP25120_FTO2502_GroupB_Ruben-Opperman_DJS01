@@ -2,7 +2,17 @@ import { DataManager } from "./dataManager.js";
 import { genres } from "./initialData.js";
 import { Modal } from "./renderModal.js";
 
+/**
+ * Responsible for rendering podcast cards and injecting them into the DOM.
+ * @namespace PodcastRenderer
+ */
 export const PodcastRenderer = {
+  /**
+   * Renders all podcasts to the given container.
+   * @function
+   * @param {Array<Object>} podcasts - The array of podcast objects to render.
+   * @param {HTMLElement} container - The DOM element where podcast cards should be appended.
+   */
   render: (podcasts, container) => {
     container.innerHTML = "";
 
@@ -12,6 +22,18 @@ export const PodcastRenderer = {
       container.appendChild(card);
     });
   },
+  /**
+   * Creates a single podcast card element with image, title, genres, and updated time.
+   * Also sets up the modal interaction.
+   * @function
+   * @param {Object} podcast - The podcast object to create a card for.
+   * @param {string} podcast.title - The podcast title.
+   * @param {string} podcast.image - URL to the podcast's image.
+   * @param {Array<number>} podcast.genres - Array of genre IDs.
+   * @param {string} podcast.updated - ISO date string for when the podcast was last updated.
+   * @param {number} podcast.seasons - Number of seasons the podcast has.
+   * @returns {HTMLElement} - The complete DOM element for the podcast card.
+   */
   createCard: (podcast) => {
     const genreNames = DataManager.getGenreIds(podcast.genres, genres).join(
       "  /  "
