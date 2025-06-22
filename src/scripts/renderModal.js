@@ -31,7 +31,7 @@ export const ModalRenderer = {
 
   createModalCard: (podcast) => {
     const genreNames = DataManager.getGenreIds(podcast.genres, genres).join(
-      "  |  "
+      " / "
     );
 
     const UpdateDate = new Date(podcast.updated);
@@ -69,8 +69,9 @@ export const ModalRenderer = {
     <h3 class="text-xl font-bold mt-2 mb-5">Description</h3>
     <p>${podcast.description}</p>
 
-    <h3 class="text-xl font-bold mt-10 mb-5">Genres:</h3>
-    <p>${genreNames}</p>
+    <h3  class="text-xl font-bold mt-10  mb-5">Genres:</h3>
+    <div id="genre-container"> </div>
+ 
 
     <p class="text-md text-gray-500 mt-5 mb-5">Last updated: ${formattedDate}</p>
 
@@ -105,6 +106,20 @@ export const ModalRenderer = {
     `;
 
       seasonsContainer.appendChild(seasonCard);
+    });
+
+    const genresList = genreNames.split(" / ");
+
+    const genresContainer = div.querySelector("#genre-container");
+
+    genresList.forEach((genre) => {
+      const genresCard = document.createElement("span");
+
+      genresCard.className =
+        "bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-medium m-1";
+      genresCard.textContent = genre;
+
+      genresContainer.appendChild(genresCard);
     });
 
     return div;
